@@ -1,0 +1,528 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Painel Administrador</title>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+
+	<!-- MODAL DE EXCLUSÃO -->
+	<div class="containerExcluirProduto">
+		<div class="excluirProduto">
+			<div class="ctExcluirProduto">
+
+				<div class="navExcluirModal">
+					<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16" onclick="fechaModalExcluirProduto();">
+						<path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z" />
+					</svg>
+				</div>
+
+				<h1>Deseja confirmar a exclusão desse Produto?</h1>
+
+				<div class="imgExcluirModal"><img src="./css/img/semImg.png" /></div>
+				<h1 id="nomeExcluirModal"></h1>
+				<input type="hidden" id="idExcluirModal" disabled />
+
+				<div class="btn-acaoExcluir">
+					<button type="button" class="btn btn-primary" onclick="fechaModalExcluirProduto();">
+						<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-left-fill" viewBox="0 0 16 16">
+							<path d="m3.86 8.753 5.482 4.796c.646.566 1.658.106 1.658-.753V3.204a1 1 0 0 0-1.659-.753l-5.48 4.796a1 1 0 0 0 0 1.506z" />
+						</svg> &nbsp; Cancelar
+					</button>
+
+					<button type="button" class="btn btn-danger" onclick="excluirProduto();">
+						<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash-fill" viewBox="0 0 16 16">
+							<path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5M8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5m3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0" />
+						</svg> &nbsp; Excluir
+					</button>
+				</div>
+
+			</div>
+		</div>
+	</div>
+	<!-- ------------------------------------------------- -->
+
+	<!-- MODAL DE CRUD CATEGORIA -->
+	<div class="containerCrudCategoria">
+		<div class="crudCategoria">
+			<div class="ctCrudCategoria">
+
+				<div class="navExcluirModal">
+					<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16" onclick="fechaModalIncluirCategoria();">
+						<path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z" />
+					</svg>
+				</div>
+
+				<div class="addCategoria mb-2">
+					<div class="ct-addCategoria">
+						<label class="form-label">Selecione um opção:</label>
+						<select type="text" class="form-control" id="listCat-CrudCat" onchange="opcaoCrudCategoria(this.value)">
+						</select>
+					</div>
+				</div>
+
+				<!-- ADICIONAR CATEGORIA -->
+				<div class="addCategoria-ct">
+					<div class="imgAddOrEditProd mb-2" id="hoverImageBg">
+						<img src="~/css/img/semImg.png" id="imagePreview-inc-cat">
+
+						<div style="display: none">
+							<input type="file" class="form-control" id="artImgIncluirCat" accept=".png, .jpg, .jpeg" onchange="exibeImgIncluirCategoria();">
+						</div>
+
+						<div class="overlay" onclick="clickArquivoImgIncluiCategoria();" id="overlay-inc-cat">
+							<div class="ct-center-overlay">
+								<svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-plus-square-dotted" viewBox="0 0 16 16">
+									<path d="M2.5 0q-.25 0-.487.048l.194.98A1.5 1.5 0 0 1 2.5 1h.458V0zm2.292 0h-.917v1h.917zm1.833 0h-.917v1h.917zm1.833 0h-.916v1h.916zm1.834 0h-.917v1h.917zm1.833 0h-.917v1h.917zM13.5 0h-.458v1h.458q.151 0 .293.029l.194-.981A2.5 2.5 0 0 0 13.5 0m2.079 1.11a2.5 2.5 0 0 0-.69-.689l-.556.831q.248.167.415.415l.83-.556zM1.11.421a2.5 2.5 0 0 0-.689.69l.831.556c.11-.164.251-.305.415-.415zM16 2.5q0-.25-.048-.487l-.98.194q.027.141.028.293v.458h1zM.048 2.013A2.5 2.5 0 0 0 0 2.5v.458h1V2.5q0-.151.029-.293zM0 3.875v.917h1v-.917zm16 .917v-.917h-1v.917zM0 5.708v.917h1v-.917zm16 .917v-.917h-1v.917zM0 7.542v.916h1v-.916zm15 .916h1v-.916h-1zM0 9.375v.917h1v-.917zm16 .917v-.917h-1v.917zm-16 .916v.917h1v-.917zm16 .917v-.917h-1v.917zm-16 .917v.458q0 .25.048.487l.98-.194A1.5 1.5 0 0 1 1 13.5v-.458zm16 .458v-.458h-1v.458q0 .151-.029.293l.981.194Q16 13.75 16 13.5M.421 14.89c.183.272.417.506.69.689l.556-.831a1.5 1.5 0 0 1-.415-.415zm14.469.689c.272-.183.506-.417.689-.69l-.831-.556c-.11.164-.251.305-.415.415l.556.83zm-12.877.373Q2.25 16 2.5 16h.458v-1H2.5q-.151 0-.293-.029zM13.5 16q.25 0 .487-.048l-.194-.98A1.5 1.5 0 0 1 13.5 15h-.458v1zm-9.625 0h.917v-1h-.917zm1.833 0h.917v-1h-.917zm1.834-1v1h.916v-1zm1.833 1h.917v-1h-.917zm1.833 0h.917v-1h-.917zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3z" />
+								</svg>
+							</div>
+							<h1>Incluir Imagem</h1>
+						</div>
+					</div>
+
+					<div class="inputAddIncluirCategoria">
+						<input class="form-control" id="nomeIncluirCategoria" placeholder="Insira o nome da Categoria" />
+					</div>
+
+					<div class="btnAddIncluirCategoria" onclick="incluirCategoria();">
+						<button type="button" class="btn btn-primary">
+							<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-circle" viewBox="0 0 16 16">
+								<path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16" />
+								<path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4" />
+							</svg> &nbsp; Incluir Categoria
+						</button>
+					</div>
+				</div>
+
+
+				<!-- EXCLUIR CATEGORIA -->
+				<div class="excCategoria-ct">
+
+					<div class="container-ExcCategoria">
+						<div class="ct-img-exc-cat" mb-2">
+							<img src="./css/img/semImg.png" id="imagePreview-exc-cat">
+						</div>
+
+						<input type="hidden" id="idExcluirCat" value="" disabled />
+						<input type="hidden" id="nomeExcluirCat" value="" disabled />
+
+						<div class="btnAddExcluirCategoria" onclick="excluirItemCategoria();">
+							<button type="button" class="btn btn-danger">
+								<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash-fill" viewBox="0 0 16 16">
+									<path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5M8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5m3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0" />
+								</svg> &nbsp; Excluir Categoria
+							</button>
+						</div>
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</div>
+	<!-- ------------------------------------------------- -->
+
+	<!-- MODAL DE CRUD SUB-CATEGORIA -->
+	<div class="containerSubCrudCategoria">
+		<div class="crudSubCategoria">
+			<div class="ctCrudSubCategoria">
+
+				<div class="navExcluirModal">
+					<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16" onclick="fechaModalIncluirSubCategoria();">
+						<path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z" />
+					</svg>
+				</div>
+
+				<div class="addSubCategoria mb-2">
+					<div class="ct-addCategoria">
+						<label class="nullMargin">Selecione uma Categoria</label>
+						<select type="text" class="form-control" id="listCategoriaIncSub" onchange="listarSubCategoriasIncluirSubCat(this.value);">
+						</select>
+					</div>
+				</div>
+
+				<div class="addSubCategoria mb-2">
+					<div class="ct-addCategoria">
+						<label class="nullMargin">Selecione uma opção</label>
+						<select type="text" class="form-control" id="listCategoriaIncSubCat" onchange="selecionaOpcaoCrudSubCategoria();">
+							<option value="" selected>-- Selecione uma Categoria  --</option>
+						</select>
+					</div>
+				</div>
+
+				<!-- ADICIONAR SUB-CATEGORIA -->
+				<div class="addSubCategoria-ct">
+
+					<div class="inputAddIncluirCategoria">
+						<input class="form-control" id="nomeIncluirSubCategoria" placeholder="Insira o nome da Sub-Categoria" autocomplete="off" />
+					</div>
+
+					<div class="btnAddIncluirCategoria" onclick="incluirSubCategoria();">
+						<button type="button" class="btn btn-primary">
+							<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-circle" viewBox="0 0 16 16">
+								<path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16" />
+								<path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4" />
+							</svg> &nbsp; Incluir Sub-Categoria
+						</button>
+					</div>
+				</div>
+
+
+				<!-- EXCLUIR SUB-CATEGORIA -->
+				<div class="excSubCategoria-ct">
+					<input type="hidden" id="idExcluirCat" value="" disabled />
+					<input type="hidden" id="nomeExcluirCat" value="" disabled />
+					<div class="btnAddExcluirCategoria" onclick="excluirItemSubCategoria();">
+						<button type="button" class="btn btn-danger">
+							<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash-fill" viewBox="0 0 16 16">
+								<path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5M8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5m3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0" />
+							</svg> &nbsp; Excluir Sub-Categoria
+						</button>
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</div>
+	<!-- ------------------------------------------------- -->
+
+	<nav class="nav-painel-adm">
+		<div class="ct-nav-painel-adm">
+			<div class="ct-nav-center">
+
+				<div class="ct-nav-left">
+					<div class="ct-nav-left-img"><img src="~/css/img/sua-logo-aqui-white.png" /></div>
+					<div class="ct-nav-left-h1"><h1>Painel de Produtos</h1></div>
+				</div>
+
+				<div class="ct-nav-right">
+					<a class="ct-nav-right-svg" href="@Url.Action("Index", "Home")">
+						<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-box-arrow-in-right" viewBox="0 0 16 16">
+							<path fill-rule="evenodd" d="M6 3.5a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-2a.5.5 0 0 0-1 0v2A1.5 1.5 0 0 0 6.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2h-8A1.5 1.5 0 0 0 5 3.5v2a.5.5 0 0 0 1 0z" />
+							<path fill-rule="evenodd" d="M11.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H1.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708z" />
+						</svg>
+					</a>
+					<a class="ct-nav-right-h1" href="@Url.Action("Index", "Home")"><h1>Ir para o site</h1></a>
+				</div>
+
+			</div>
+		</div>
+	</nav>
+
+	<div class="msg_retorno">
+		<div class="msg_retorno_text" id="msg_retorno_text">
+			<label id="msg_text_rs"></label>
+		</div>
+	</div>
+
+
+	<div class="ct-painel-container">
+
+		<div class="ct-painel-produtos">
+
+			<div class="infoBda">
+				<div class="ct-infoBda">
+					<div class="infoBda-itens" id="infoBda-itensProduto">
+						<div class="infoBda-itens-center">
+							<h1>
+								Produtos
+							</h1>
+							<div class="itensDadosQtd">
+								<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-box-seam" viewBox="0 0 16 16">
+									<path d="M8.186 1.113a.5.5 0 0 0-.372 0L1.846 3.5l2.404.961L10.404 2zm3.564 1.426L5.596 5 8 5.961 14.154 3.5zm3.25 1.7-6.5 2.6v7.922l6.5-2.6V4.24zM7.5 14.762V6.838L1 4.239v7.923zM7.443.184a1.5 1.5 0 0 1 1.114 0l7.129 2.852A.5.5 0 0 1 16 3.5v8.662a1 1 0 0 1-.629.928l-7.185 2.874a.5.5 0 0 1-.372 0L.63 13.09a1 1 0 0 1-.63-.928V3.5a.5.5 0 0 1 .314-.464z" />
+								</svg>
+								<h1 id="number_qtd_produtos"></h1>
+							</div>
+						</div>
+					</div>
+
+					<div class="infoBda-itens incCat zoom-div" onclick="exibeModalIncluirCategoria();">
+						<div class="infoBda-itens-center">
+							<h1>
+								Categorias
+								<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-square" viewBox="0 0 16 16">
+									<path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z" />
+									<path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4" />
+								</svg>
+							</h1>
+							<div class="itensDadosQtd">
+								<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-tag" viewBox="0 0 16 16">
+									<path d="M6 4.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0m-1 0a.5.5 0 1 0-1 0 .5.5 0 0 0 1 0" />
+									<path d="M2 1h4.586a1 1 0 0 1 .707.293l7 7a1 1 0 0 1 0 1.414l-4.586 4.586a1 1 0 0 1-1.414 0l-7-7A1 1 0 0 1 1 6.586V2a1 1 0 0 1 1-1m0 5.586 7 7L13.586 9l-7-7H2z" />
+								</svg>
+								<h1 id="number_qtd_categoria"></h1>
+							</div>
+						</div>
+					</div>
+
+					<div class="infoBda-itens incCat zoom-div" onclick="exibeModalIncluirSubCategoria();">
+						<div class="infoBda-itens-center">
+							<h1>
+								Sub-categorias
+								<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-square" viewBox="0 0 16 16">
+									<path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z" />
+									<path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4" />
+								</svg>
+							</h1>
+							<div class="itensDadosQtd">
+								<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-tags" viewBox="0 0 16 16">
+									<path d="M3 2v4.586l7 7L14.586 9l-7-7zM2 2a1 1 0 0 1 1-1h4.586a1 1 0 0 1 .707.293l7 7a1 1 0 0 1 0 1.414l-4.586 4.586a1 1 0 0 1-1.414 0l-7-7A1 1 0 0 1 2 6.586z" />
+									<path d="M5.5 5a.5.5 0 1 1 0-1 .5.5 0 0 1 0 1m0 1a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3M1 7.086a1 1 0 0 0 .293.707L8.75 15.25l-.043.043a1 1 0 0 1-1.414 0l-7-7A1 1 0 0 1 0 7.586V3a1 1 0 0 1 1-1z" />
+								</svg>
+								<h1 id="number_qtd_sub_categoria"></h1>
+							</div>
+						</div>
+					</div>
+
+					<div class="infoBda-itens criaProd zoom-div" onclick="exibeModalIncluirProduto();">
+						<div class="infoBda-itens-center">
+							<div class="itensDadosCriar">
+								<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-plus-square-dotted" viewBox="0 0 16 16">
+									<path d="M2.5 0q-.25 0-.487.048l.194.98A1.5 1.5 0 0 1 2.5 1h.458V0zm2.292 0h-.917v1h.917zm1.833 0h-.917v1h.917zm1.833 0h-.916v1h.916zm1.834 0h-.917v1h.917zm1.833 0h-.917v1h.917zM13.5 0h-.458v1h.458q.151 0 .293.029l.194-.981A2.5 2.5 0 0 0 13.5 0m2.079 1.11a2.5 2.5 0 0 0-.69-.689l-.556.831q.248.167.415.415l.83-.556zM1.11.421a2.5 2.5 0 0 0-.689.69l.831.556c.11-.164.251-.305.415-.415zM16 2.5q0-.25-.048-.487l-.98.194q.027.141.028.293v.458h1zM.048 2.013A2.5 2.5 0 0 0 0 2.5v.458h1V2.5q0-.151.029-.293zM0 3.875v.917h1v-.917zm16 .917v-.917h-1v.917zM0 5.708v.917h1v-.917zm16 .917v-.917h-1v.917zM0 7.542v.916h1v-.916zm15 .916h1v-.916h-1zM0 9.375v.917h1v-.917zm16 .917v-.917h-1v.917zm-16 .916v.917h1v-.917zm16 .917v-.917h-1v.917zm-16 .917v.458q0 .25.048.487l.98-.194A1.5 1.5 0 0 1 1 13.5v-.458zm16 .458v-.458h-1v.458q0 .151-.029.293l.981.194Q16 13.75 16 13.5M.421 14.89c.183.272.417.506.69.689l.556-.831a1.5 1.5 0 0 1-.415-.415zm14.469.689c.272-.183.506-.417.689-.69l-.831-.556c-.11.164-.251.305-.415.415l.556.83zm-12.877.373Q2.25 16 2.5 16h.458v-1H2.5q-.151 0-.293-.029zM13.5 16q.25 0 .487-.048l-.194-.98A1.5 1.5 0 0 1 13.5 15h-.458v1zm-9.625 0h.917v-1h-.917zm1.833 0h.917v-1h-.917zm1.834-1v1h.916v-1zm1.833 1h.917v-1h-.917zm1.833 0h.917v-1h-.917zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3z" />
+								</svg>
+							</div>
+							<h1 class="h1_text_aling">Criar Produto</h1>
+						</div>
+					</div>
+
+				</div>
+			</div>
+
+			<div class="listProd">
+				<div class="ct-listProd">
+					<table class="navFilters">
+						<thead>
+							<tr>
+								<th class="imgDescProd">
+									<div class="ct-imgProdAdm">
+										<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-images" viewBox="0 0 16 16">
+											<path d="M4.502 9a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3" />
+											<path d="M14.002 13a2 2 0 0 1-2 2h-10a2 2 0 0 1-2-2V5A2 2 0 0 1 2 3a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v8a2 2 0 0 1-1.998 2M14 2H4a1 1 0 0 0-1 1h9.002a2 2 0 0 1 2 2v7A1 1 0 0 0 15 11V3a1 1 0 0 0-1-1M2.002 4a1 1 0 0 0-1 1v8l2.646-2.354a.5.5 0 0 1 .63-.062l2.66 1.773 3.71-3.71a.5.5 0 0 1 .577-.094l1.777 1.947V5a1 1 0 0 0-1-1z" />
+										</svg>
+									</div>
+								</th>
+								<th class="nomeDescProd"><div class="ct-nomeProdAdm"><h1>Nome</h1></div></th>
+								<th class="ct-precoProdAdmTr"><div class="ct-precoProdAdm"><h1>Preço</h1></div></th>
+								<th>
+									<div class="ct-catProdAdm">
+										<div class="ct-catProdAdm">
+											<h1>Categoria</h1>
+											<select id="categoriasAdmList" onchange="listarSubCategoriasIncluirAdmList(this.value)">
+												Selecionar categoria
+												<option>Todos</option>
+											</select>
+										</div>
+									</div>
+								</th>
+								<th class="ct-subCatProdAdmTh">
+									<div class="ct-subCatProdAdm">
+										<h1>Sub-categoria</h1>
+										<select id="subCategoriasAdmList" onchange="listarProdutosListAdm(this.value)">
+											Selecionar Sub-categoria
+											<option>Todos</option>
+										</select>
+									</div>
+								</th>
+								<th>
+									<div class="ct-actionsProdAdm">
+										<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-grid-fill" viewBox="0 0 16 16">
+											<path d="M1 2.5A1.5 1.5 0 0 1 2.5 1h3A1.5 1.5 0 0 1 7 2.5v3A1.5 1.5 0 0 1 5.5 7h-3A1.5 1.5 0 0 1 1 5.5zm8 0A1.5 1.5 0 0 1 10.5 1h3A1.5 1.5 0 0 1 15 2.5v3A1.5 1.5 0 0 1 13.5 7h-3A1.5 1.5 0 0 1 9 5.5zm-8 8A1.5 1.5 0 0 1 2.5 9h3A1.5 1.5 0 0 1 7 10.5v3A1.5 1.5 0 0 1 5.5 15h-3A1.5 1.5 0 0 1 1 13.5zm8 0A1.5 1.5 0 0 1 10.5 9h3a1.5 1.5 0 0 1 1.5 1.5v3a1.5 1.5 0 0 1-1.5 1.5h-3A1.5 1.5 0 0 1 9 13.5z" />
+										</svg>
+									</div>
+								</th>
+							</tr>
+						</thead>
+						<tbody id="tabeBodyProd">
+							<!-- <tr>
+								<td class="imgDescProd"><img src="./css/img/Essencias/ess2GoiabasZiggy.png" /></td>
+								<td class="nomeDescProd"><div class="nomeIten">Essência Onix 50g...</div></td>
+								<td><div class="precoIten">R$ 9,90</div></td>
+								<td><div class="catIten">Narguilé</div></td>
+								<td><div class="subCatIten">Essências</div></td>
+								<td>
+									<div class="actionIten">
+										<svg class="zoom-div2" onclick="" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
+											<path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
+											<path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z" />
+										</svg>
+										<svg class="zoom-div2" onclick="" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+											<path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z" />
+											<path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z" />
+										</svg>
+										<svg class="zoom-div2" onclick="" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-copy" viewBox="0 0 16 16">
+											<path fill-rule="evenodd" d="M4 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 5a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-1h1v1a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h1v1z" />
+										</svg>
+									</div>
+								</td>
+							</tr> -->
+						</tbody>
+					</table>
+
+				</div>
+			</div>
+
+		</div>
+
+		<div class="ct-painel-modalEdicao">
+
+			<div class="formPainelIncluir">
+				<div class="ct-formPainel">
+
+					<label class="form-label ct-formPainelTitle" id="titleModalInc">
+						Incluir Produto
+						<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16" onclick="fecharModalEditResp();" id="iconFecharModalInc">
+							<path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z" />
+						</svg>
+					</label>
+
+					<div class="imgAddOrEditProd mb-2" id="hoverImageBg">
+						<img src="./css/img/semImg.png" id="imagePreview">
+
+						<div style="display: none">
+							<input type="file" class="form-control" id="imgIncluirProduto" accept=".png, .jpg, .jpeg" onchange="exibeImgIncluirProd();">
+						</div>
+
+						<div class="overlay" onclick="clickArquivoImgIncluirProd();">
+							<div class="ct-center-overlay">
+								<svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-plus-square-dotted" viewBox="0 0 16 16">
+									<path d="M2.5 0q-.25 0-.487.048l.194.98A1.5 1.5 0 0 1 2.5 1h.458V0zm2.292 0h-.917v1h.917zm1.833 0h-.917v1h.917zm1.833 0h-.916v1h.916zm1.834 0h-.917v1h.917zm1.833 0h-.917v1h.917zM13.5 0h-.458v1h.458q.151 0 .293.029l.194-.981A2.5 2.5 0 0 0 13.5 0m2.079 1.11a2.5 2.5 0 0 0-.69-.689l-.556.831q.248.167.415.415l.83-.556zM1.11.421a2.5 2.5 0 0 0-.689.69l.831.556c.11-.164.251-.305.415-.415zM16 2.5q0-.25-.048-.487l-.98.194q.027.141.028.293v.458h1zM.048 2.013A2.5 2.5 0 0 0 0 2.5v.458h1V2.5q0-.151.029-.293zM0 3.875v.917h1v-.917zm16 .917v-.917h-1v.917zM0 5.708v.917h1v-.917zm16 .917v-.917h-1v.917zM0 7.542v.916h1v-.916zm15 .916h1v-.916h-1zM0 9.375v.917h1v-.917zm16 .917v-.917h-1v.917zm-16 .916v.917h1v-.917zm16 .917v-.917h-1v.917zm-16 .917v.458q0 .25.048.487l.98-.194A1.5 1.5 0 0 1 1 13.5v-.458zm16 .458v-.458h-1v.458q0 .151-.029.293l.981.194Q16 13.75 16 13.5M.421 14.89c.183.272.417.506.69.689l.556-.831a1.5 1.5 0 0 1-.415-.415zm14.469.689c.272-.183.506-.417.689-.69l-.831-.556c-.11.164-.251.305-.415.415l.556.83zm-12.877.373Q2.25 16 2.5 16h.458v-1H2.5q-.151 0-.293-.029zM13.5 16q.25 0 .487-.048l-.194-.98A1.5 1.5 0 0 1 13.5 15h-.458v1zm-9.625 0h.917v-1h-.917zm1.833 0h.917v-1h-.917zm1.834-1v1h.916v-1zm1.833 1h.917v-1h-.917zm1.833 0h.917v-1h-.917zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3z" />
+								</svg>
+							</div>
+							<h1>Alterar Imagem</h1>
+						</div>
+
+					</div>
+
+					<div class="mb-2">
+						<label class="form-label">Título</label>
+						<input type="text" class="form-control" placeholder="Digite o titulo do produto" id="nomeIncluirProduto" maxlength="60" autocomplete="off">
+					</div>
+
+					<div class="mb-2">
+						<label class="form-label">Preço</label>
+						<input type="text" class="form-control" id="precoIncluirProduto" maxlength="10" placeholder="0,00" oninput="mascaraNumValorIncluir()" autocomplete="off">
+					</div>
+
+
+					<div class="addClassSub mb-2">
+						<div>
+							<label class="form-label">Categoria</label>
+							<select type="text" class="form-control" id="categoriasAdmListModal" onchange="listarSubCategoriasIncluirAdmModal(this.value)">
+							</select>
+						</div>
+						<div>
+							<label class="form-label">Sub-Categoria</label>
+							<select type="text" class="form-control" id="subCategoriasAdmListModal">
+							</select>
+						</div>
+					</div>
+
+					<div class="mb-2">
+						<label class="form-label">Descrição</label>
+						<textarea type="text" class="form-control" id="descIncluirProduto" placeholder="Digite o descrição do produto" maxlength="4500" autocomplete="off"></textarea>
+					</div>
+
+					<div class="btn-salvar-painelAdm">
+						<button type="button" class="btn btn-primary" onclick="incluirProduto();">Incluir Produto</button>
+					</div>
+
+				</div>
+			</div>
+
+			<div class="formPainelAtualizar">
+				<div class="ct-formPainel">
+
+					<label class="form-label ct-formPainelTitle" id="titleModalEdi">
+						Editar/Alterar PRODUTO
+						<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16" onclick="fecharModalEditResp();" id="iconFecharModalEdit">
+							<path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z" />
+						</svg>
+					</label>
+
+					<div class="imgAddOrEditProd mb-2" id="hoverImageBg">
+						<img id="imgAtualizarProduto" src="" />
+						<input type="hidden" class="form-control" id="valImgAlterarProduto" disabled>
+
+						<div style="display: none">
+							<input type="file" class="form-control" id="fileImgIncluirProduto" accept=".png, .jpg, .jpeg" onchange="exibeImgAlterarProd();">
+						</div>
+
+						<div class="overlay" onclick="clickArquivoImgAlterarProd();">
+							<div class="ct-center-overlay">
+								<svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-plus-square-dotted" viewBox="0 0 16 16">
+									<path d="M2.5 0q-.25 0-.487.048l.194.98A1.5 1.5 0 0 1 2.5 1h.458V0zm2.292 0h-.917v1h.917zm1.833 0h-.917v1h.917zm1.833 0h-.916v1h.916zm1.834 0h-.917v1h.917zm1.833 0h-.917v1h.917zM13.5 0h-.458v1h.458q.151 0 .293.029l.194-.981A2.5 2.5 0 0 0 13.5 0m2.079 1.11a2.5 2.5 0 0 0-.69-.689l-.556.831q.248.167.415.415l.83-.556zM1.11.421a2.5 2.5 0 0 0-.689.69l.831.556c.11-.164.251-.305.415-.415zM16 2.5q0-.25-.048-.487l-.98.194q.027.141.028.293v.458h1zM.048 2.013A2.5 2.5 0 0 0 0 2.5v.458h1V2.5q0-.151.029-.293zM0 3.875v.917h1v-.917zm16 .917v-.917h-1v.917zM0 5.708v.917h1v-.917zm16 .917v-.917h-1v.917zM0 7.542v.916h1v-.916zm15 .916h1v-.916h-1zM0 9.375v.917h1v-.917zm16 .917v-.917h-1v.917zm-16 .916v.917h1v-.917zm16 .917v-.917h-1v.917zm-16 .917v.458q0 .25.048.487l.98-.194A1.5 1.5 0 0 1 1 13.5v-.458zm16 .458v-.458h-1v.458q0 .151-.029.293l.981.194Q16 13.75 16 13.5M.421 14.89c.183.272.417.506.69.689l.556-.831a1.5 1.5 0 0 1-.415-.415zm14.469.689c.272-.183.506-.417.689-.69l-.831-.556c-.11.164-.251.305-.415.415l.556.83zm-12.877.373Q2.25 16 2.5 16h.458v-1H2.5q-.151 0-.293-.029zM13.5 16q.25 0 .487-.048l-.194-.98A1.5 1.5 0 0 1 13.5 15h-.458v1zm-9.625 0h.917v-1h-.917zm1.833 0h.917v-1h-.917zm1.834-1v1h.916v-1zm1.833 1h.917v-1h-.917zm1.833 0h.917v-1h-.917zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3z" />
+								</svg>
+							</div>
+							<h1>Alterar Imagem</h1>
+						</div>
+
+					</div>
+
+					<div class="mb-2">
+						<label class="form-label">Título</label>
+						<input type="text" class="form-control" placeholder="Digite o titulo do produto" id="nomeAtualizarProduto" maxlength="60">
+						<input type="hidden" class="form-control" id="idAtualizarProduto">
+					</div>
+
+					<div class="mb-2">
+						<label class="form-label">Preço</label>
+						<input type="text" class="form-control" placeholder="Digite o preço do produto" id="precoAtualizarProduto" maxlength="10" oninput="mascaraNumValorAtualizar()">
+					</div>
+
+					<div class="addClassSub mb-2">
+						<div>
+							<label class="form-label">Categoria</label>
+							<select type="text" class="form-control" id="categoriaAtualizarProduto" onchange="listarSubCategoriasAtualizarAdmModal(this.value)">
+							</select>
+						</div>
+						<div>
+							<label class="form-label">Sub-Categoria</label>
+							<select type="text" class="form-control" id="subCategoriaAtualizarProduto">
+							</select>
+						</div>
+					</div>
+
+					<div class="mb-2">
+						<label class="form-label">Descrição</label>
+						<textarea type="text" class="form-control" id="descAtualizarProduto" placeholder="Digite o descrição do produto" maxlength="4500"></textarea>
+					</div>
+
+					<div class="btn-salvar-painelAdm">
+						<button type="button" class="btn btn-primary" onclick="alterarProduto();">Salvar Alterações</button>
+					</div>
+
+				</div>
+			</div>
+
+			<div class="infoForm">
+				<div class="ct-infoForm">
+					<h1>
+						<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
+							<path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
+							<path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z" />
+						</svg>
+					</h1>
+					<h2>
+						Editar/Alterar Produtos
+					</h2>
+					<h3>Faça as alterações necessárias em produtos. Ajuste detalhes, adicione informações ou modifique conforme a necessidade.</h3>
+				</div>
+			</div>
+
+			<div class="ct-loading-modalEdit">
+				<div class="loading-modalEdit"></div>
+			</div>
+
+		</div>
+
+	</div>
+
+	<footer>
+		<div class="ct-footer">
+			<label id="txt_footer">Copyright © 2024 – Todos os Direitos Reservados.</label>
+		</div>
+	</footer>
+
+</body>
+</html>

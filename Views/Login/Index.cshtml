@@ -1,0 +1,68 @@
+﻿@{
+	ViewData["Title"] = "Inicio";
+}
+
+
+<html>
+
+<head>
+	<!-- Icon nav bar -->
+	<link rel="shortcut icon" href="" type="image/x-icon">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<title>Menu Ditgital</title>
+</head>
+<body>
+
+	<div class="bc-tela-cheia">
+		<div class="bc-img-login">
+			<h1>
+				A Neonova é uma empresa especializada em criar
+				experiências digitais incríveis. Com uma equipe
+				de especialistas em desenvolvimento web e design
+				gráfico, estamos prontos para levar seu negócio
+				ao próximo nível.
+			</h1>
+		</div>
+
+		<div class="bc-tela-login">
+
+			<!-- MSG DE EXIBIÇÃO -->
+			<div class="msg_retorno_login">
+				<div class="msg_retorno_text_login" id="msg_retorno_text_login">
+					<label id="msg_text_rs_login"></label>
+				</div>
+			</div>
+
+			<div class="ct-login">
+				<div class="login">
+					<div class="dados-login">
+						<div class="title-login">
+							<h1>SEJA BEM-VINDO</h1>
+							<h2>Entre com a sua conta para acessar o painel</h2>
+						</div>
+						<div class="mb-3 inpup-login">
+							<label class="form-label">Email ou Usuario</label>
+							<input class="form-control" tabindex="1" id="id_usuario" autocomplete="off" placeholder="Digite seu email">
+						</div>
+						<div class="mb-3 inpup-login">
+							<label class="form-label">Senha</label>
+							<input type="password" tabindex="2" class="form-control" id="id_senha" autocomplete="off" placeholder="Digite sua senha">
+						</div>
+						<button tabindex="3" class="btn-login" id="clickloginButton" onclick="validaLogin();">Entrar</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</div>
+
+
+	<footer>
+		<div class="ct-footer">
+			<label id="txt_footer">Copyright © 2024 – Todos os Direitos Reservados.</label>
+		</div>
+	</footer>
+
+</body>
+</html>
